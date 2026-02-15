@@ -53,10 +53,33 @@
  */
 export function writePostcard(sender, receiver, message) {
   // Your code here
+  if( typeof sender!=="string"|| typeof receiver!=="string"|| typeof message!=="string"){
+    return "";
+  }
+  let x=sender.trim();
+  let y=receiver.trim();
+  let z= message.trim();
+  if(x===""|| y===""||z==="")
+  {
+    return "";
+  }
+  return `Priy ${y},\n\n${z}\n\nAapka/Aapki,\n${x}`;
 }
 
 export function isValidPincode(code) {
   // Your code here
+  let pattern=/^\d+$/;
+    if( typeof code!=="string")
+    {
+      return false;
+    }
+    if(!(code.startsWith(0))&& code.length==6&&pattern.test(code))
+    {
+      return true;
+    }
+    else{
+      return false;
+    }
 }
 
 export function formatPostcardField(label, value, width) {
