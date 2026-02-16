@@ -84,12 +84,39 @@ export function isValidPincode(code) {
 
 export function formatPostcardField(label, value, width) {
   // Your code here
+  if(typeof label !== "string"|| typeof value !== "string")
+  {
+    return "";
+  }
+  if(width == null )
+  {
+    return `${label.padEnd(12," ") }: ${value}`;
+  }else{
+     return `${label.padEnd(width," ") }: ${value}`;
+  }
 }
 
 export function isFromState(address, stateCode) {
   // Your code here
+  if(typeof address !== "string"|| typeof stateCode !== "string")
+  {
+    return false;
+  }
+  let y=address.endsWith(stateCode);
+  return y;
 }
 
 export function countVowels(message) {
   // Your code here
+  if(typeof message !== "string")
+  {
+    return 0;
+  }
+  let x=message.match(/[aeiouAEIOU]/g);
+  if(x==null)
+  {
+    return 0;
+  }else{
+    return x.length;
+  }
 }

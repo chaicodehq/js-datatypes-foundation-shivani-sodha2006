@@ -53,17 +53,54 @@
  *   // => "RAJASTHANI THALI (Veg) - Items: dal - Rs.250.00"
  */
 export function createThaliDescription(thali) {
-  // Your code here
+   if (
+    typeof thali !== "object" || thali === null || Array.isArray(thali) ||
+    typeof thali.name !== "string" || thali.name === "" ||
+    !Array.isArray(thali.items) || thali.items.length === 0 ||
+    typeof thali.isVeg !== "boolean" ||
+    thali.price == null
+  ) {
+    return "";
+  }
+  return `${thali.name.toUpperCase()} (${thali.isVeg ? "Veg" : "Non-Veg"}) - Items: ${thali.items.join(", ")} - Rs.${thali.price.toFixed(2)}`
 }
 
 export function getThaliStats(thalis) {
-  // Your code here
+  if(!(Array.isArray(thalis))||thalis.length == 0)
+  {
+    return null;
+  }
+  let totalThalis=thalis.length;
+ let vegCount= thalis.filter(thali =>thali.isVeg).length;
+ let nonVegCount=thalis.filter(thali =>!(thali.isVeg)).length;
+ let avgPrice= (thalis.reduce((total,thali)=> thali.price+total,0)/totalThalis).toFixed(2);
+ let prices=thalis.map(thali=>thali.price);
+ let cheapest =Math.min(...prices);
+ let costliest=Math.max(...prices);
+ let names=thalis.map(thali => thali.name);
+ return { totalThalis, vegCount, nonVegCount, avgPrice ,
+                  cheapest , costliest , names }
 }
 
+
 export function searchThaliMenu(thalis, query) {
-  // Your code here
+  if(!(Array.isArray(thalis))||typeof query!== "string")
+  {
+    return [];
+  }
+  let matched=thalis.filter(
+    thali=>thali.name.toLowerCase().includes(query.toLowerCase())
+     || thali.items.some(item=>item.toLowerCase().includes(query.toLowerCase())));
+  return matched;
 }
 
 export function generateThaliReceipt(customerName, thalis) {
-  // Your code here
+  if(!(Array.isArray(thalis))||typeof customerName!== "string"|| thalis.length==0)
+  {
+    return "";
+  }
+  let NAME=thalis.map(thali=>thali.name.includes(customerName));
+  
+   //"THALI RECEIPT\n---\nCustomer: {NAME}\n{line items}\n---\nTotal: Rs.{total}\nItems: {count}"
+ //*     // - Line item: "- {thali name} x Rs.{price}"
 }
