@@ -99,8 +99,13 @@ export function generateThaliReceipt(customerName, thalis) {
   {
     return "";
   }
-  let NAME=thalis.map(thali=>thali.name.includes(customerName));
-  
-   //"THALI RECEIPT\n---\nCustomer: {NAME}\n{line items}\n---\nTotal: Rs.{total}\nItems: {count}"
- //*     // - Line item: "- {thali name} x Rs.{price}"
+let lineItems = thalis
+  .map(thali => `- ${thali.name} x Rs.${thali.price}`)
+  .join("\n");
+  const prices=thalis.map(thali=> thali.price);
+  const total = prices.reduce((acc, x) => acc + x, 0);
+
+
+     return `THALI RECEIPT\n---\nCustomer: ${customerName.toUpperCase()}\n${ lineItems}\n---\nTotal: Rs.${total}\nItems: ${thalis.length}`
+       
 }
